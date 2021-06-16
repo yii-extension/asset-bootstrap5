@@ -21,7 +21,7 @@
   </coverage>
 
   <testsuites>
-    <testsuite name="Template">
+    <testsuite name="Asset-Bootstrap5">
       <directory>./tests</directory>
     </testsuite>
   </testsuites>

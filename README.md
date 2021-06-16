@@ -2,21 +2,86 @@
     <a href="https://github.com/yii-extension" target="_blank">
         <img src="https://lh3.googleusercontent.com/ehSTPnXqrkk0M3U-UPCjC0fty9K6lgykK2WOUA2nUHp8gIkRjeTN8z8SABlkvcvR-9PIrboxIvPGujPgWebLQeHHgX7yLUoxFSduiZrTog6WoZLiAvqcTR1QTPVRmns2tYjACpp7EQ=w2400" height="100px">
     </a>
-    <h1 align="center">Template for Yii Packages</h1>
+    <h1 align="center">Asset Bootstrap5 for Yii3.</h1>
     <br>
 </p>
 
-[![Total Downloads](https://poser.pugx.org/yii-extension/template/downloads.png)](https://packagist.org/packages/yii-extension/template)
-[![Build Status](https://github.com/yii-extension/template/workflows/build/badge.svg)](https://github.com/yii-extension/template/actions?query=workflow%3Abuild)
-[![codecov](https://codecov.io/gh/yii-extension/template/branch/main/graph/badge.svg?token=KB6T5KMGED)](https://codecov.io/gh/yii-extension/template)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https://badge-api.stryker-mutator.io/github.com/yii-extension/template/master)](https://dashboard.stryker-mutator.io/reports/github.com/yii-extension/template/master)
-[![static analysis](https://github.com/yii-extension/template/workflows/static%20analysis/badge.svg)](https://github.com/yii-extension/template/actions?query=workflow%3A%22static+analysis%22)
-
+[![Total Downloads](https://poser.pugx.org/yii-extension/asset-bootstrap5/downloads.png)](https://packagist.org/packages/yii-extension/asset-bootstrap5)
+[![Build Status](https://github.com/yii-extension/asset-bootstrap5/workflows/build/badge.svg)](https://github.com/yii-extension/asset-bootstrap5/actions?query=workflow%3Abuild)
+[![static analysis](https://github.com/yii-extension/asset-bootstrap5/workflows/static%20analysis/badge.svg)](https://github.com/yii-extension/asset-bootstrap5/actions?query=workflow%3A%22static+analysis%22)
+[![type-coverage](https://shepherd.dev/github/yii-extension/asset-bootstrap5/coverage.svg)](https://shepherd.dev/github/yii-extension/asset-bootstrap5)
 
 ## Installation
 
 ```shell
-composer require <vendor/your-packages>
+composer require asset-bootstrap5
+```
+
+## Usage
+If you want to add the asset to the entire application, you must add it in layout `main.php`, in case of using it only in one view you must add it to it. 
+
+### Asset Bootstrap5:
+```php
+<?php
+
+declare(strict_types=1);
+
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
+
+/**
+ * @var AssetManager $assetManager
+ * @var WebView $this
+ */
+
+/* Register assets in view */
+$assetManager->register([Bootstrap5Asset::class]);
+
+$this->addCssFiles($assetManager->getCssFiles());
+$this->addJsFiles($assetManager->getJsFiles());
+?>
+```
+
+### Cdn Asset Bootstrap5:
+```php
+<?php
+
+declare(strict_types=1);
+
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5CdnAsset;
+
+/**
+ * @var AssetManager $assetManager
+ * @var WebView $this
+ */
+
+/* Register assets in view */
+$assetManager->register([Bootstrap5CdnAsset::class]);
+
+$this->addCssFiles($assetManager->getCssFiles());
+$this->addJsFiles($assetManager->getJsFiles());
+?>
+```
+
+### Validation Bootstrap5 `javaScript` for disabling form submissions if there are invalid fields:
+```php
+<?php
+
+declare(strict_types=1);
+
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5ValidationAsset;
+
+/**
+ * @var AssetManager $assetManager
+ * @var WebView $this
+ */
+
+/* Register assets in view */
+$assetManager->register([Bootstrap5Asset::class, Bootstrap5ValidationAsset::class]);
+
+$this->addCssFiles($assetManager->getCssFiles());
+$this->addJsFiles($assetManager->getJsFiles());
+?>
 ```
 
 ### Unit testing
@@ -27,25 +92,21 @@ The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 ./vendor/bin/phpunit
 ```
 
-### Mutation testing
+## Static analysis
 
-The package tests are checked with [Infection](https://infection.github.io/) mutation framework. To run it:
-
-```shell
-./vendor/bin/infection
-```
-
-### Static analysis
-
-The code is statically analyzed with [Phan](https://github.com/phan/phan/wiki). To run static analysis:
+The code is statically analyzed with [Psalm](https://psalm.dev/docs). To run static analysis:
 
 ```shell
-./vendor/bin/phan
+./vendor/bin/psalm
 ```
+
+### Support the project
+
+[![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
 
 ### License
 
-The Template for Yii Packages is free software. It is released under the terms of the BSD License.
+The Asset-Bootstrap5 for Yii Packages is free software. It is released under the terms of the BSD License.
 Please see [`LICENSE`](./LICENSE.md) for more information.
 
 Maintained by [Yii Extension](https://github.com/yii-extension).

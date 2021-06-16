@@ -1,29 +1,36 @@
 {
-    "name": "yii-extension/template",
+    "name": "yii-extension/asset-bootstrap5",
     "type": "library",
-    "description": "_____",
+    "description": "Bootstrap5 Asset for Yii3",
     "keywords": [
-        "_____"
+        "yii3",
+        "bootstrap5",
+        "asset"
     ],
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "foxy/foxy": "^1.1@dev",
+        "yiisoft/assets": "^1.0.0",
+        "yiisoft/files": "^1.0.0"
     },
     "require-dev": {
+        "psr/log": "^1.1",
         "phpunit/phpunit": "^9.5",
-        "roave/infection-static-analysis-plugin": "^1.7",
-        "vimeo/psalm": "^4.3"
+        "vimeo/psalm": "^4.4",
+        "yiisoft/aliases": "^2.0.0",
+        "yiisoft/di": "^3.0@dev"
     },
     "autoload": {
         "psr-4": {
-            "Template\\": "src"
+            "Yii\\Extension\\Asset\\Bootstrap5\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Template\\Tests\\": "tests"
+            "Yii\\Extension\\Asset\\Bootstrap5\\Tests\\": "tests"
         }
     },
     "extra": {
