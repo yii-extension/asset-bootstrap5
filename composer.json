@@ -12,7 +12,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "foxy/foxy": "dev-master as dev-patch-1",
+        "foxy/foxy": "dev-patch-1 as dev-master",
         "yiisoft/assets": "^1.0.0",
         "yiisoft/files": "^1.0.0"
     },
