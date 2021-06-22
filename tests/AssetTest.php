@@ -19,6 +19,10 @@ final class AssetTest extends TestCase
                 \Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset::class,
             ],
             [
+                'Css',
+                \Yii\Extension\Asset\Bootstrap5\Bootstrap5IconsAsset::class,
+            ],
+            [
                 'Js',
                 \Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset::class,
             ],
