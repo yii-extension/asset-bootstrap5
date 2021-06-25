@@ -12,7 +12,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.4|^8.0",
-        "foxy/foxy": "dev-patch-1 as dev-master",
+        "foxy/foxy": "^1.1@dev",
         "yiisoft/assets": "^1.0.0",
         "yiisoft/files": "^1.0.0"
     },
@@ -40,11 +40,5 @@
     },
     "config": {
         "sort-packages": true
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/SamMousa/foxy"
-        }
-    ]
+    }
 }
