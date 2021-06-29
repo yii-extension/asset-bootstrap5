@@ -19,6 +19,10 @@ final class Bootstrap5ValidationAsset extends AssetBundle
         'js/bootstrap5Validation.js',
     ];
 
+    public array $depends = [
+        Bootstrap5Asset::class,
+    ];
+
     public function __construct()
     {
         $pathMatcher = new PathMatcher();
