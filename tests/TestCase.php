@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Yii\Extension\Asset\Bootstrap5\Tests;
 
 use Exception;
-use PHPUnit\Framework\TestCase as BaseTestCase;
-use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
+use PHPUnit\Framework\TestCase as AbstractTestCase;
 use Psr\Log\NullLogger;
 use ReflectionClass;
 use Yiisoft\Aliases\Aliases;
@@ -18,27 +16,29 @@ use Yiisoft\Assets\AssetLoaderInterface;
 use Yiisoft\Assets\AssetManager;
 use Yiisoft\Assets\AssetPublisher;
 use Yiisoft\Assets\AssetPublisherInterface;
-use Yiisoft\Di\Container;
-use Yiisoft\Factory\Definition\Reference;
 use Yiisoft\Files\FileHelper;
+use Yiisoft\Test\Support\Container\SimpleContainer;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends AbstractTestCase
 {
-    private ContainerInterface $container;
-    protected Aliases $aliases;
     protected AssetManager $assetManager;
     protected AssetPublisherInterface $assetPublisher;
+    private Aliases $aliases;
 
     protected function setUp(): void
     {
-        parent::setUp();
-
-        $this->container = new Container($this->config());
-        $this->aliases = $this->container->get(Aliases::class);
-        $this->assetManager = $this->container->get(AssetManager::class);
-        $this->assetPublisher = $this->container->get(AssetPublisherInterface::class);
+        $container = $this->createContainer();
+        /** @var Aliases */
+        $this->aliases = $container->get(Aliases::class);
+        /** @var AssetManager */
+        $this->assetManager = $container->get(AssetManager::class);
+        /** @var AssetPublisherInterface */
+        $this->assetPublisher = $container->get(AssetPublisherInterface::class);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -60,11 +60,15 @@ abstract class TestCase extends BaseTestCase
         $reflection = new ReflectionClass($manager);
         $property = $reflection->getProperty('registeredBundles');
         $property->setAccessible(true);
+        /** @var array */
         $registeredBundles = $property->getValue($manager);
         $property->setAccessible(false);
         return $registeredBundles;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function removeAssets(string $basePath): void
     {
         $handle = opendir($dir = $this->aliases->get($basePath));
@@ -88,35 +92,31 @@ abstract class TestCase extends BaseTestCase
         closedir($handle);
     }
 
-    private function config(): array
+    private function createContainer(): SimpleContainer
     {
-        return [
-            Aliases::class => [
-                '__construct()' => [
-                    [
-                        '@assetBootstrap5' => dirname(__DIR__),
-                        '@assetsUrl' => '/assets',
-                        '@assets' => dirname(__DIR__) . '/tests/data/assets',
-                        '@npm' => dirname(__DIR__) . '/node_modules',
-                        '@vendor' => dirname(__DIR__) . '/vendor'
-                    ]
-                ]
-            ],
+        $aliases = new Aliases([
+            '@assetBootstrap5' => dirname(__DIR__),
+            '@assetsUrl' => '/assets',
+            '@assets' => dirname(__DIR__) . '/tests/data/assets',
+            '@npm' => dirname(__DIR__) . '/node_modules',
+            '@vendor' => dirname(__DIR__) . '/vendor',
+        ]);
 
-            LoggerInterface::class => NullLogger::class,
+        $converter = new AssetConverter($aliases, new NullLogger(), [], false);
 
-            AssetConverterInterface::class => AssetConverter::class,
+        $loader = new AssetLoader($aliases, false, [], null, null);
 
-            AssetPublisherInterface::class => AssetPublisher::class,
+        $publisher = new AssetPublisher($aliases, false, false);
 
-            AssetLoaderInterface::class => AssetLoader::class,
+        $manager = new AssetManager($aliases, $loader, [], []);
+        $manager = $manager->withConverter($converter)->withPublisher($publisher);
 
-            AssetManager::class => [
-                'class' => AssetManager::class,
-                'withConverter()' => [Reference::to(AssetConverterInterface::class)],
-                'withPublisher()' => [Reference::to(AssetPublisherInterface::class)],
-
-            ]
-        ];
+        return new SimpleContainer([
+            Aliases::class => $aliases,
+            AssetManager::class => $manager,
+            AssetLoaderInterface::class => $loader,
+            AssetConverterInterface::class => $converter,
+            AssetPublisherInterface::class => $publisher,
+        ]);
     }
 }

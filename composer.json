@@ -21,7 +21,7 @@
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.4",
         "yiisoft/aliases": "^2.0.0",
-        "yiisoft/di": "^3.0@dev"
+        "yiisoft/test-support": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
