@@ -17,71 +17,73 @@
 composer require asset-bootstrap5
 ```
 
-## Usage
-If you want to add the asset to the entire application, you must add it in layout `main.php`, in case of using it only in one view you must add it to it. 
+## Using assets
 
-### Asset Bootstrap5:
+Bootstrap5 is a CSS framework that provides all the CSS to customize your application, the widgets by default
+do not register any Asset so you must register them in your application to be used, since you can simply use the
+default CSS file layout, or build your own custom CCS.
+
+`Three Assets are provided:`
+
+- [Bootstrap5Asset](src/Bootstrap5Asset.php): Asset file for Bootstrap5 Css Framework include `Css` and `Js` files.
+- [Bootstrap5CdnAsset](src/Bootstrap5CdnAsset.php): Asset file for Cdn Bootstrap5 Css Framework include `Css` and `Js` files.
+- [Bootstrap5IconsAsset](src/Bootstrap5IconsAsset.php): Asset file for Icons Bootstrap5 Css Framework include `Css` files.
+- [Bootstrap5ValidationAsset](src/Bootstrap5ValidationAsset.php): Asset file for [Custom Validation Bootstrap5](https://getbootstrap.com/docs/5.0/forms/validation/#custom-styles).
+
+For more information [Bootstrap5](https://getbootstrap.com/docs/5.0/getting-started/introduction/).
+
+To use widgets only, register `Bootstrap5::class`, which we can do in several ways explained below.
+
+`Note:` You need to have [npm](https://docs.npmjs.com/getting-started) installed, this extension uses [foxy](https://github.com/fxpio/foxy) to install assets. 
+
+`Register asset in view layout or individual view:`
+
+By registering the Asset in the `layout/main.php` it will be available for all views.
+
+If you need it registered for individual view (such as `views/user/login.php`) only,
+register it in that view.
+
+
 ```php
-<?php
-
-declare(strict_types=1);
-
-use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
+use  Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
 
 /**
- * @var AssetManager $assetManager
- * @var WebView $this
+ * @var Yiisoft\Assets\AssetManager $assetManager
+ * @var Yiisoft\View\WebView $this
  */
 
-/* Register assets in view */
-$assetManager->register([Bootstrap5Asset::class]);
+$assetManager->register([
+    Bootstrap5Asset::class,
+]);
 
-$this->addCssFiles($assetManager->getCssFiles());
-$this->addJsFiles($assetManager->getJsFiles());
-?>
+$this->setCssFiles($assetManager->getCssFiles());
+$this->setJsFiles($assetManager->getJsFiles());
 ```
 
-### Cdn Asset Bootstrap5:
+`Register asset in application params:`
+
+You can register asset in the assets parameters, (by default, this is `config/packages/yiisoft/assets/params.php`).
+Asset will be available for all views of this application.
+
 ```php
-<?php
+use  Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
 
-declare(strict_types=1);
-
-use Yii\Extension\Asset\Bootstrap5\Bootstrap5CdnAsset;
-
-/**
- * @var AssetManager $assetManager
- * @var WebView $this
- */
-
-/* Register assets in view */
-$assetManager->register([Bootstrap5CdnAsset::class]);
-
-$this->addCssFiles($assetManager->getCssFiles());
-$this->addJsFiles($assetManager->getJsFiles());
-?>
+'yiisoft/asset' => [
+    'assetManager' => [
+        'register' => [
+            Bootstrap5Asset::class,
+        ],
+    ],
+],
 ```
 
-### Validation Bootstrap5 `javaScript` for disabling form submissions if there are invalid fields:
+Then in `layout/main.php`:
+
 ```php
-<?php
+/* @var Yiisoft\View\WebView $this */
 
-declare(strict_types=1);
-
-use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
-use Yii\Extension\Asset\Bootstrap5\Bootstrap5ValidationAsset;
-
-/**
- * @var AssetManager $assetManager
- * @var WebView $this
- */
-
-/* Register assets in view */
-$assetManager->register([Bootstrap5Asset::class, Bootstrap5ValidationAsset::class]);
-
-$this->addCssFiles($assetManager->getCssFiles());
-$this->addJsFiles($assetManager->getJsFiles());
-?>
+$this->setCssFiles($assetManager->getCssFiles());
+$this->setJsFiles($assetManager->getJsFiles());
 ```
 
 ### Unit testing
@@ -110,5 +112,8 @@ Maintained by [Yii Extension](https://github.com/yii-extension).
 
 ## Support the project
 
-[![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](https://www.yiiframework.com/)
 [![Open Collective](https://img.shields.io/badge/Open%20Collective-sponsor-7eadf1?logo=open%20collective&logoColor=7eadf1&labelColor=555555)](https://opencollective.com/yiisoft)
+
+## Powered by Yii Framework
+
+[![Official website](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](https://www.yiiframework.com/)

@@ -1,11 +1,11 @@
 {
     "name": "yii-extension/asset-bootstrap5",
     "type": "library",
-    "description": "Bootstrap5 Asset for Yii3",
+    "description": "Bootstrap5 Asset For Yii3",
     "keywords": [
         "yii3",
-        "bootstrap5",
-        "asset"
+        "asset",
+        "bootstrap5"
     ],
     "license": "BSD-3-Clause",
     "minimum-stability": "dev",

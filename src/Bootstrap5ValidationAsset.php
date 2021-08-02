@@ -13,10 +13,10 @@ final class Bootstrap5ValidationAsset extends AssetBundle
 
     public ?string $baseUrl = '@assetsUrl';
 
-    public ?string $sourcePath = '@assetBootstrap5/storage/assets';
+    public ?string $sourcePath = '@assetBootstrap5/storage';
 
     public array $js = [
-        'js/bootstrap5Validation.js',
+        'assets/bootstrap5Validation.js',
     ];
 
     public array $depends = [
@@ -29,7 +29,7 @@ final class Bootstrap5ValidationAsset extends AssetBundle
 
         $this->publishOptions = [
             'filter' => $pathMatcher->only(
-                '**/js/bootstrap5Validation.js',
+                '**/assets/bootstrap5Validation.js',
             ),
         ];
     }
