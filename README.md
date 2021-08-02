@@ -9,7 +9,6 @@
 [![Total Downloads](https://poser.pugx.org/yii-extension/asset-bootstrap5/downloads.png)](https://packagist.org/packages/yii-extension/asset-bootstrap5)
 [![Build Status](https://github.com/yii-extension/asset-bootstrap5/workflows/build/badge.svg)](https://github.com/yii-extension/asset-bootstrap5/actions?query=workflow%3Abuild)
 [![static analysis](https://github.com/yii-extension/asset-bootstrap5/workflows/static%20analysis/badge.svg)](https://github.com/yii-extension/asset-bootstrap5/actions?query=workflow%3A%22static+analysis%22)
-[![type-coverage](https://shepherd.dev/github/yii-extension/asset-bootstrap5/coverage.svg)](https://shepherd.dev/github/yii-extension/asset-bootstrap5)
 
 ## Installation
 
@@ -45,7 +44,7 @@ register it in that view.
 
 
 ```php
-use  Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
 
 /**
  * @var Yiisoft\Assets\AssetManager $assetManager
@@ -66,7 +65,7 @@ You can register asset in the assets parameters, (by default, this is `config/pa
 Asset will be available for all views of this application.
 
 ```php
-use  Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
+use Yii\Extension\Asset\Bootstrap5\Bootstrap5Asset;
 
 'yiisoft/asset' => [
     'assetManager' => [
