@@ -42,7 +42,7 @@ final class CdnAssetTest extends TestCase
 
         $this->assertEmpty($this->getRegisteredBundles($this->assetManager));
 
-        $this->assetManager->register([$cdnBundle]);
+        $this->assetManager->registerMany([$cdnBundle]);
 
         if ($cdnDepend !== null && $type === 'Css') {
             $this->assertEquals($depend->css[0], $this->assetManager->getCssFiles()[$depend->css[0]][0]);
@@ -70,7 +70,7 @@ final class CdnAssetTest extends TestCase
     {
         $this->assertEmpty($this->getRegisteredBundles($this->assetManager));
 
-        $this->assetManager->register([$cdnBundle]);
+        $this->assetManager->registerMany([$cdnBundle]);
 
         if ($cdnDepend !== null) {
             $this->assertCount(2, $this->getRegisteredBundles($this->assetManager));
